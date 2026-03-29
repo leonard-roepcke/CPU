@@ -51,7 +51,7 @@ class Cnt:
         self.n_8bit.clear()
 
 def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0,0,0,0,0,0]):
-    catch_error(inp, message"inp")
+    catch_error(inp, message="inp")
     catch_error(data, message="date")
     catch_error(safe_8bit, message="safe_8bit")
 
@@ -83,4 +83,4 @@ def complement_8bit(n_8bit):
 
 def catch_error(inp, inp_typ=list, length=8,  message=""):
     if not isinstance(inp, inp_typ): raise TypeError("TypeError"+message)
-    if inptyp == list and len(inp) != length: raise TypeError("WrongLength"+message)
+    if inp_typ == list and len(inp) != length: raise TypeError("WrongLength"+message)

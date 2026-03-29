@@ -9,5 +9,12 @@ from utils import *
 print("Cnt")
 cnt = Cnt()
 print(cnt.read())
+
+cnt.tick()
+print(cnt.read())
+
+cnt.tick()
+print(cnt.read())
+
 cnt.tick()
 print(cnt.read())

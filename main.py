@@ -1,6 +1,13 @@
 print("CPU started")
 
 from utils import *
-a = [1,0,0,0,0,0,0,1]
-b = [0,0,0,0,0,0,0,1]
-print(add_8bit(a,b))
+
+#a = Safe_8bit([1,0,0,0,0,0,0,1])
+#b = Safe_8bit([1,0,0,0,0,0,0,1])
+#print(add_8bit(a.read(), b.read()))
+
+print("Cnt")
+cnt = Cnt()
+print(cnt.read())
+cnt.tick()
+print(cnt.read())

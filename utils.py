@@ -1,4 +1,8 @@
 def add_1bit(bit_1, bit_2, carry=0):
+    catch_error(bit_1, int,  message="bit_1")
+    catch_error(bit_2, int, message="bit_2")
+    catch_error(carry, int, message="carry")
+
     out_1 = bit_1 ^ bit_2 ^ carry
     carryer = (bit_1 and bit_2) or (bit_2 and carry) or (bit_1 and carry)
     return [out_1, carryer]
@@ -28,7 +32,7 @@ class Cnt:
         self.n_8bit = Safe_8bit()
 
     def tick(self):
-        np1 = add_8bit(self.n_8bit.read(),[0]*8,1)[0]
+        np1 = add_8bit(self.n_8bit.read(),[0,0,0,0,0,0,0,0],1)[0]
         self.n_8bit.write(np1)
 
     def read(self):
@@ -37,9 +41,9 @@ class Cnt:
     def reset(self):
         self.n_8bit.clear()
 
-def control_unit(inp=[0]*8, data=[0]*8, safe_8bit=[0]*8):
-    a_8bit = [0]*8
-    b_8bit = [0]*8
+def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0,0,0,0,0,0]):
+    a_8bit = [0,0,0,0,0,0,0,0]
+    b_8bit = [0,0,0,0,0,0,0,0]
     if inp==[0,0,0,0,0,0,0,0]:
         pass #write 0
     if inp==[0,0,0,0,0,0,0,1]:
@@ -56,5 +60,10 @@ def control_unit(inp=[0]*8, data=[0]*8, safe_8bit=[0]*8):
     return [a_8bit, b_8bit]
 
 def complement_8bit(n_8bit):
+    catch_error(n_8bit, message="completment_8bit")
     out = [n ^ 1 for n in n_8bit]
-    return add_8bit(out, [0]*8, carry=1)
+    return add_8bit(out, [0]*8, carry=1)[0] #ohne carry
+
+def catch_error(inp, inp_typ=list, length=False, message=""):
+    if not isinstance(inp, inp_typ): raise TypeError("TypeError"+message)
+    if length and len(inp) != length: raise TypeError("WrongLength"+message)

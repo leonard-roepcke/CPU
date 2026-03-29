@@ -49,7 +49,7 @@ def control_unit(inp=[0]*8, data=[0]*8, safe_8bit=[0]*8):
     if inp==[0,0,0,0,0,0,1,1]:
         a_8bit = data
         b_8bit = safe_8bit
-    if inp==[0,0,0,0,0,1,0,01:
+    if inp==[0,0,0,0,0,1,0,0]:
         a_8bit = complement_8bit(data)
         b_8bit = safe_8bit
             

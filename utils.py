@@ -37,5 +37,24 @@ class Cnt:
     def reset(self):
         self.n_8bit.clear()
 
-def Control_unit:
-   pass 
+def control_unit(inp=[0]*8, data=[0]*8, safe_8bit=[0]*8):
+    a_8bit = [0]*8
+    b_8bit = [0]*8
+    if inp==[0,0,0,0,0,0,0,0]:
+        pass #write 0
+    if inp==[0,0,0,0,0,0,0,1]:
+        a_8bit = data 
+    if inp==[0,0,0,0,0,0,1,0]:
+        b_8bit = safe_8bit
+    if inp==[0,0,0,0,0,0,1,1]:
+        a_8bit = data
+        b_8bit = safe_8bit
+    if inp==[0,0,0,0,0,1,0,01:
+        a_8bit = complement_8bit(data)
+        b_8bit = safe_8bit
+            
+    return [a_8bit, b_8bit]
+
+def complement_8bit(n_8bit):
+    out = [n ^ 1 for n in n_8bit]
+    return add_8bit(out, [0]*8, carry=1)

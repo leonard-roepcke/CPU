@@ -4,9 +4,15 @@ print("CPU started")
 
 from utils import *
 
-inp = Safe_8bit([0,0,0,0,0,1,0,0])
-a = Safe_8bit([1,0,0,0,0,1,0,1])
-b = Safe_8bit([1,0,0,0,0,1,1,1])
+a = Safe_8bit()
+inp = Safe_8bit()
+b = Safe_8bit()
 
-a_c, b_c = control_unit(inp.read(), a.read(), b.read())
-print(add_8bit(a_c, b_c))
+while True:
+    inp.write(player_inp_8bit("Control bits: "))
+    a.write(player_inp_8bit("data bits: "))
+
+    a_c, b_c = control_unit(inp.read(), a.read(), b.read())
+    b.write(add_8bit(a_c, b_c)[0])
+
+    print(b.read())

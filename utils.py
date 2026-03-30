@@ -84,3 +84,10 @@ def complement_8bit(n_8bit):
 def catch_error(inp, inp_typ=list, length=8,  message=""):
     if not isinstance(inp, inp_typ): raise TypeError("TypeError"+message)
     if inp_typ == list and len(inp) != length: raise TypeError("WrongLength"+message)
+
+def player_inp_8bit(inp="Gebe eine 8bit Binär Zahl an: ")-> list[int]:
+    bitstring = input(inp)
+    if any(c not in "01" for c in bitstring):
+        raise ValueError("Only 0 and 1 allowed")
+
+    return [int(c) for c in bitstring]

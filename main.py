@@ -4,6 +4,11 @@ print("CPU started")
 
 from utils import *
 
+ram = Ram_8byte()
+ram.write([0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1])
+a = Safe_8bit([0,0,0,0,0,0,1,1])
+print(ram.read(a.read()))
+"""
 a = Safe_8bit()
 inp = Safe_8bit()
 b = Safe_8bit()
@@ -16,3 +21,4 @@ while True:
     b.write(add_8bit(a_c, b_c)[0])
 
     print(b.read())
+"""

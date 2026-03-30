@@ -91,3 +91,16 @@ def player_inp_8bit(inp="Gebe eine 8bit Binär Zahl an: ")-> list[int]:
         raise ValueError("Only 0 and 1 allowed")
 
     return [int(c) for c in bitstring]
+
+def bin_to_dec(bits):
+    return int("".join(str(b) for b in bits), 2)
+
+class Ram_8byte:
+    def __init__(self):
+        self.data = [Safe_8bit()]*8
+
+    def read(self, adress_8bit):
+        return self.data[bin_to_dec(adress_8bit)].read()
+
+    def write(self, adress_8bit, data):
+        self.data[bin_to_dec(adress_8bit)].write(data)

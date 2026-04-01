@@ -50,6 +50,9 @@ class Cnt:
     def reset(self):
         self.n_8bit.clear()
 
+    def write(self, adr):
+        self.n_8bit.write(adr)
+
 def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0,0,0,0,0,0]):
     catch_error(inp, message="inp")
     catch_error(data, message="date")
@@ -136,9 +139,11 @@ class Cpu:
                 self.inp_control.write([0,0,0,0,0,1,0,0])
                 #suptracts inp from data in data
             if inp==([0,0,0,0,0,1,0,1]):
-                self.cnt.reset()
+                self.cnt.tick()
+                #self.cnt.reset()
+                self.cnt.write(self.ram.read(self.cnt.read()))
                 continue
-                #jump to start
+                #jump to line [data]
 
             #self.inp_control.write(self.ram.read(self.cnt.read()))
             self.cnt.tick()

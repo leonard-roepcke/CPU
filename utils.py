@@ -61,7 +61,7 @@ def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0
     b_8bit = [0,0,0,0,0,0,0,0]
     if inp==[0,0,0,0,0,0,0,0]:
         b_8bit = safe_8bit
-        #hier ist ein programm abbruch, das steht jedoch in der cpu
+        #safe
     if inp==[0,0,0,0,0,0,0,1]:
         a_8bit = data
         #write input 
@@ -75,9 +75,6 @@ def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0
         a_8bit = complement_8bit(data)
         b_8bit = safe_8bit
         #minus input
-    if inp==[0,0,0,0,0,1,0,1]:
-        b_8bit = safe_8bit
-        #do nothing
             
     return [a_8bit, b_8bit]
 
@@ -122,11 +119,34 @@ class Cpu:
 
     def run(self):
         while self.ram.read(self.cnt.read()) != [0,0,0,0,0,0,0,0]:
-            self.inp_control.write(self.ram.read(self.cnt.read()))
+            inp = self.ram.read(self.cnt.read())
+            if inp==[0,0,0,0,0,0,0,0]:
+                self.inp_control.write([0,0,0,0,0,0,0,0])
+                #stop programm go into writing code mode
+            if inp==[0,0,0,0,0,0,0,1]:
+                self.inp_control.write([0,0,0,0,0,0,0,1])
+                #writes to data
+            if inp==[0,0,0,0,0,0,1,0]:
+                self.inp_control.write([0,0,0,0,0,0,1,0])
+                #keeps data programm goes on
+            if inp==[0,0,0,0,0,0,1,1]:
+                self.inp_control.write([0,0,0,0,0,0,1,1])
+                #adds inp and data in data
+            if inp==[0,0,0,0,0,1,0,0]:
+                self.inp_control.write([0,0,0,0,0,1,0,0])
+                #suptracts inp from data in data
+            if inp==([0,0,0,0,0,1,0,1]):
+                self.cnt.reset()
+                continue
+                #jump to start
+
+            #self.inp_control.write(self.ram.read(self.cnt.read()))
             self.cnt.tick()
             self.inp_data.write(self.ram.read(self.cnt.read()))
             self.cnt.tick()
             self.data.write(add_8bit(
-                                     *control_unit(self.inp_control.read(),self.inp_data.read(),self.data.read())
+                                     *control_unit(self.inp_control.read(),
+                                                   self.inp_data.read(),
+                                                   self.data.read())
                                  )[0])
             print(self.data.read())

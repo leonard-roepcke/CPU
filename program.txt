@@ -1,0 +1,6 @@
+start
+add 01
+sup 01
+wrt 02
+jmp 01
+end

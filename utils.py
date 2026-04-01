@@ -60,20 +60,24 @@ def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0
     a_8bit = [0,0,0,0,0,0,0,0]
     b_8bit = [0,0,0,0,0,0,0,0]
     if inp==[0,0,0,0,0,0,0,0]:
-        pass #write 0 (reset)
-    if inp==[0,0,0,0,0,0,0,1]:
-        a_8bit = data 
-    if inp==[0,0,0,0,0,0,1,0]:
         b_8bit = safe_8bit
+        #hier ist ein programm abbruch, das steht jedoch in der cpu
+    if inp==[0,0,0,0,0,0,0,1]:
+        a_8bit = data
+        #write input 
+    if inp==[0,0,0,0,0,0,1,0]:
+        pass #clear set 0
     if inp==[0,0,0,0,0,0,1,1]:
         a_8bit = data
         b_8bit = safe_8bit
+        #add input
     if inp==[0,0,0,0,0,1,0,0]:
         a_8bit = complement_8bit(data)
         b_8bit = safe_8bit
+        #minus input
     if inp==[0,0,0,0,0,1,0,1]:
         b_8bit = safe_8bit
-        #hier ein programm start machen
+        #do nothing
             
     return [a_8bit, b_8bit]
 
@@ -98,12 +102,31 @@ def player_inp_8bit(inp="Gebe eine 8bit Binär Zahl an: ")-> list[int]:
 def bin_to_dec(bits):
     return int("".join(str(b) for b in bits), 2)
 
-class Ram_8byte:
+class Ram:
     def __init__(self):
-        self.data = [Safe_8bit() for _ in range(8)]
+        self.data = [Safe_8bit() for _ in range(256)]
 
     def read(self, adress_8bit):
         return self.data[bin_to_dec(adress_8bit)].read()
 
     def write(self, adress_8bit, data):
         self.data[bin_to_dec(adress_8bit)].write(data)
+
+class Cpu:
+    def __init__(self, cnt, ram):
+        self.cnt = cnt
+        self.ram = ram
+        self.inp_control = Safe_8bit()
+        self.inp_data = Safe_8bit()
+        self.data = Safe_8bit()
+
+    def run(self):
+        while self.ram.read(self.cnt.read()) != [0,0,0,0,0,0,0,0]:
+            self.inp_control.write(self.ram.read(self.cnt.read()))
+            self.cnt.tick()
+            self.inp_data.write(self.ram.read(self.cnt.read()))
+            self.cnt.tick()
+            self.data.write(add_8bit(
+                                     *control_unit(self.inp_control.read(),self.inp_data.read(),self.data.read())
+                                 )[0])
+            print(self.data.read())

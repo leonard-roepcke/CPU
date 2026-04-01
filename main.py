@@ -4,7 +4,22 @@ print("CPU started")
 
 from utils import *
 
-ram = Ram_8byte()
+
+cnt = Cnt()
+ram = Ram()
+cpu = Cpu(cnt, ram)
+
+adr = Safe_8bit()
+data = Safe_8bit()
+
+while True:
+    adr.write(player_inp_8bit("adress bits: "))
+    data.write(player_inp_8bit("data bits: "))
+    ram.write(adr.read(),data.read())
+    cpu.run()
+
+"""
+ram = Ram()
 ram.write([0,0,0,0,0,0,0,1],[0,0,0,0,0,0,1,1])
 a = Safe_8bit([0,0,0,0,0,0,0,0])
 
@@ -12,7 +27,7 @@ for i in range(8):
     print(a.read() , "   " , ram.read(a.read()))
     a.write(add_8bit(a.read(),[0,0,0,0,0,0,0,1])[0])
 
-"""
+
 a = Safe_8bit()
 inp = Safe_8bit()
 b = Safe_8bit()

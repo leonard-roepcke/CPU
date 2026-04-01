@@ -155,3 +155,16 @@ class Cpu:
                                                    self.data.read())
                                  )[0])
             print(self.data.read())
+
+
+def import_bin(file_location="program_bin.txt"):
+    with open(file_location, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    program = []
+    for line in lines:
+        line = line.strip()
+        programm.append()
+        for bit in line:
+
+            programm[-1].append()

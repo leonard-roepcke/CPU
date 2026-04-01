@@ -60,7 +60,7 @@ def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0
     a_8bit = [0,0,0,0,0,0,0,0]
     b_8bit = [0,0,0,0,0,0,0,0]
     if inp==[0,0,0,0,0,0,0,0]:
-        pass #write 0
+        pass #write 0 (reset)
     if inp==[0,0,0,0,0,0,0,1]:
         a_8bit = data 
     if inp==[0,0,0,0,0,0,1,0]:
@@ -71,6 +71,9 @@ def control_unit(inp=[0,0,0,0,0,0,0,0], data=[0,0,0,0,0,0,0,0], safe_8bit=[0,0,0
     if inp==[0,0,0,0,0,1,0,0]:
         a_8bit = complement_8bit(data)
         b_8bit = safe_8bit
+    if inp==[0,0,0,0,0,1,0,1]:
+        b_8bit = safe_8bit
+        #hier ein programm start machen
             
     return [a_8bit, b_8bit]
 
@@ -97,7 +100,7 @@ def bin_to_dec(bits):
 
 class Ram_8byte:
     def __init__(self):
-        self.data = [Safe_8bit()]*8
+        self.data = [Safe_8bit() for _ in range(8)]
 
     def read(self, adress_8bit):
         return self.data[bin_to_dec(adress_8bit)].read()

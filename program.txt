@@ -2,5 +2,6 @@ start
 add 01
 sup 01
 wrt 02
+skp 01 #bedingtes übersprigen der nächsen zeile zb. mit 01 sagen das im speicher position 0x01 der wert !=0 ist dann wird übersprungen?
 jmp 01
 end

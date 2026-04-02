@@ -164,7 +164,11 @@ def import_bin(file_location="program_bin.txt"):
     program = []
     for line in lines:
         line = line.strip()
-        programm.append()
-        for bit in line:
+        line_parts = line.split()
+        inp_line = []
+        for part in line_parts:
+            inp_line.append([int(bit) for bit in part])
 
-            programm[-1].append()
+        program.append(inp_line)
+
+    return program

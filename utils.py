@@ -40,9 +40,10 @@ class Cnt:
     def __init__(self):
         self.n_8bit = Safe_8bit()
 
-    def tick(self):
-        np1 = add_8bit(self.n_8bit.read(),[0,0,0,0,0,0,0,0],1)[0]
-        self.n_8bit.write(np1)
+    def tick(self,n=1):
+        for _ in range(n):
+            np1 = add_8bit(self.n_8bit.read(),[0,0,0,0,0,0,0,0],1)[0]
+            self.n_8bit.write(np1)
 
     def read(self):
         return self.n_8bit.read()

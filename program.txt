@@ -1,6 +1,1 @@
 start
-wrt FF
-put 00
-wrt 00
-pul 00
-add 00

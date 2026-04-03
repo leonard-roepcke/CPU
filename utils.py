@@ -143,9 +143,9 @@ class Cpu:
             if inp==[0,0,0,0,0,1,0,1]:
                 self.cnt.tick()
                 #self.cnt.reset()
-                self.cnt.write(self.ram.read(self.cnt.read()))
+                self.cnt.write(self.register[bin_to_dec(self.ram.read(self.cnt.read()))].read())
                 continue
-                #jump to line [data]
+                #jump to line in register x
             if inp==[0,0,0,0,0,1,1,0]:
                 self.cnt.tick()
                 if bin_to_dec(self.register[bin_to_dec(self.ram.read(self.cnt.read()))].read()) < bin_to_dec(self.data.read()):
@@ -169,6 +169,11 @@ class Cpu:
                 self.cnt.tick()
                 continue
                 #pull from register x
+
+            if inp==[0,0,0,0,1,0,0,1]:
+                self.cnt.tick(2)
+                self.data.write(self.cnt.read())
+                #write cur addresse to data
 
 
             #self.inp_control.write(self.ram.read(self.cnt.read()))

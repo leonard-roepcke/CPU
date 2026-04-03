@@ -10,7 +10,11 @@ comand_map = {
     "sty":"00000010", #stays the same (pass)
     "add":"00000011", #adds to data
     "sub":"00000100", #subtracts to data
-    "jmp":"00000101", #jumps to adr
+    "jmp":"00000101", #jumps to adr                           #fix adressing
+    "skp":"00000110", #conditional skip if data > register x    
+    "put":"00000111", #push to register x
+    "pul":"00001000", #pull form register x to data
+    
 }
 with open("program.txt", encoding="utf-8") as f:
     program = f.readlines()

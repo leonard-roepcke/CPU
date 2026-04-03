@@ -1,3 +1,6 @@
 start
-add 01
-jmp 02
+wrt FF
+put 00
+wrt 00
+pul 00
+add 00

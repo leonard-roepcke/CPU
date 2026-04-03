@@ -120,6 +120,7 @@ class Cpu:
         self.inp_control = Safe_8bit()
         self.inp_data = Safe_8bit()
         self.data = Safe_8bit()
+        self.register = [Safe_8bit() for _ in range(256)]
 
     def run(self):
         while self.ram.read(self.cnt.read()) != [0,0,0,0,0,0,0,0]:
@@ -139,12 +140,36 @@ class Cpu:
             if inp==[0,0,0,0,0,1,0,0]:
                 self.inp_control.write([0,0,0,0,0,1,0,0])
                 #suptracts inp from data in data
-            if inp==([0,0,0,0,0,1,0,1]):
+            if inp==[0,0,0,0,0,1,0,1]:
                 self.cnt.tick()
                 #self.cnt.reset()
                 self.cnt.write(self.ram.read(self.cnt.read()))
                 continue
                 #jump to line [data]
+            if inp==[0,0,0,0,0,1,1,0]:
+                self.cnt.tick()
+                if bin_to_dec(self.register[bin_to_dec(self.ram.read(self.cnt.read()))].read()) < bin_to_dec(self.data.read()):
+                    self.cnt.tick(3)
+                    continue
+                else:
+                    self.cnt.tick()
+                    continue
+                #conditional line skip if data >= register x
+
+            if inp==[0,0,0,0,0,1,1,1]:
+                self.cnt.tick()
+                self.register[bin_to_dec(self.ram.read(self.cnt.read()))].write(self.data.read())
+                self.cnt.tick()
+                continue
+                #push to register x
+
+            if inp==[0,0,0,0,1,0,0,0]:
+                self.cnt.tick()
+                self.data.write(self.register[bin_to_dec(self.ram.read(self.cnt.read()))].read())
+                self.cnt.tick()
+                continue
+                #pull from register x
+
 
             #self.inp_control.write(self.ram.read(self.cnt.read()))
             self.cnt.tick()

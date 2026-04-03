@@ -173,3 +173,6 @@ def import_bin(file_location="program_bin.txt"):
         program.append(inp_line)
 
     return program
+
+def bin_to_str(bin_arr):
+    return "".join(map(str,bin_arr))

@@ -176,3 +176,6 @@ def import_bin(file_location="program_bin.txt"):
 
 def bin_to_str(bin_arr):
     return "".join(map(str,bin_arr))
+
+def hex_to_bin(hex_num):
+    return f"{bin(int(hex_num, 16))[2:]}".zfill(8)

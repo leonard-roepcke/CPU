@@ -25,7 +25,7 @@ for line in program:
         continue
     program_bin.append(f"{bin_to_str(write_adr_cnt.read())} {comand_map[line_parts[0]]}")
     write_adr_cnt.tick()
-    program_bin.append(f"{bin_to_str(write_adr_cnt.read())} {comand_map[line_parts[1]]}")#edit hear
+    program_bin.append(f"{bin_to_str(write_adr_cnt.read())} {hex_to_bin(line_parts[1])}")
     write_adr_cnt.tick()
     
 program_bin.append("00000001 00000000")

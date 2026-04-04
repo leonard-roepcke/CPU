@@ -144,6 +144,7 @@ class Cpu:
                 self.cnt.tick()
                 #self.cnt.reset()
                 self.cnt.write(self.register[bin_to_dec(self.ram.read(self.cnt.read()))].read())
+                self.cnt.tick()
                 continue
                 #jump to line in register x
             if inp==[0,0,0,0,0,1,1,0]:

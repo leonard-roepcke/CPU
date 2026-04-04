@@ -155,7 +155,7 @@ class Cpu:
                 else:
                     self.cnt.tick()
                     continue
-                #conditional line skip if data >= register x
+                #conditional line skip if data >= register x   #not tested?
 
             if inp==[0,0,0,0,0,1,1,1]:
                 self.cnt.tick()
@@ -172,10 +172,13 @@ class Cpu:
                 #pull from register x
 
             if inp==[0,0,0,0,1,0,0,1]:
-                self.cnt.tick(2)
-                self.data.write(self.cnt.read())
+                self.cnt.tick()
+                #self.data.write(self.cnt.read())
+                next_adr = add_8bit(self.cnt.read(),[0,0,0,0,0,0,0,1])[0]
+                self.register[bin_to_dec(self.ram.read(self.cnt.read()))].write(next_adr)
+                self.cnt.tick()
                 continue
-                #write cur addresse to data
+                #write cur addresse to register x
 
 
             #self.inp_control.write(self.ram.read(self.cnt.read()))

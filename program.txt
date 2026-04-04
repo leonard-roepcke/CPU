@@ -1,4 +1,6 @@
 start
 wrt 01
-atd 00
-add 00
+atr 04
+add 01
+jmp 04
+wrt FF

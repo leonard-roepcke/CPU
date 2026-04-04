@@ -174,6 +174,7 @@ class Cpu:
             if inp==[0,0,0,0,1,0,0,1]:
                 self.cnt.tick(2)
                 self.data.write(self.cnt.read())
+                continue
                 #write cur addresse to data
 
 

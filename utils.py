@@ -179,6 +179,12 @@ class Cpu:
                 self.cnt.tick()
                 continue
                 #write cur addresse to register x
+            if inp==[0,0,0,0,1,0,1,0]:
+                self.cnt.tick(2)
+                for reg in self.register:
+                    print(reg.read())
+                continue
+                #Print register
 
 
             #self.inp_control.write(self.ram.read(self.cnt.read()))

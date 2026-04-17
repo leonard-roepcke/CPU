@@ -14,7 +14,7 @@ comand_map = {
     "skp":"00000110", #conditional skip if data > register x    
     "put":"00000111", #push to register x
     "pul":"00001000", #pull form register x to data
-    "atr":"00001001", #next adresse to register
+    "atr":"00001001", #next adresse to register                          #fix 
     "prr":"00001010", #print register
 }
 with open("program.txt", encoding="utf-8") as f:

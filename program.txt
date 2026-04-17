@@ -1,3 +1,6 @@
 start
-atr 04
-prr 00
+wrt 0A
+put 02
+wrt 00
+add 01
+jmp 02
